@@ -1,0 +1,44 @@
+"use client";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { supabase } from "../lib/supabaseClient";
+
+type Game = {
+  id: string;
+  name: string;
+  field_label: string;
+  color: string;
+  icon: string;
+};
+
+export default function Home() {
+  const [games, setGames] = useState<Game[] | null>(null);
+
+  useEffect(() => {
+    supabase.from("games").select("*").then(({ data }) => setGames((data as Game[]) || []));
+  }, []);
+
+  return (
+    <main style={{ maxWidth: 900, margin: "0 auto", padding: "24px 16px" }}>
+      <p className="display-font" style={{ fontSize: 12, letterSpacing: 3, color: "#8C6CFF", marginBottom: 8 }}>TOP-UP · ทุกเกม · ไว · ชัวร์</p>
+      <h1 className="display-font" style={{ fontSize: 32, fontWeight: 700, marginBottom: 24 }}>
+        เติมเกมที่คุณเล่น ให้เต็มถัง<span style={{ color: "#FF3D8A" }}>ในไม่กี่นาที</span>
+      </h1>
+
+      {!games && <p style={{ color: "#A79FC7" }}>กำลังโหลด...</p>}
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 16 }}>
+        {games?.map((g) => (
+          <Link key={g.id} href={`/game/${g.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div style={{ background: "#1F1640", border: "1px solid #2A2154", borderRadius: 16, overflow: "hidden" }}>
+              <div style={{ height: 90, background: `linear-gradient(140deg, ${g.color}dd 0%, #150E2E 115%)` }} />
+              <div style={{ padding: 14 }}>
+                <p style={{ fontWeight: 600, fontSize: 14 }}>{g.name}</p>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </main>
+  );
+}

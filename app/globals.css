@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Prompt:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+body {
+  background: #150E2E;
+  color: #F5F2FF;
+  font-family: 'Prompt', sans-serif;
+}
+.display-font { font-family: 'Chakra Petch', sans-serif; }
