@@ -2,7 +2,8 @@
 @import "tailwindcss";
 
 body {
-  background: #150E2E;
+  background: #150E2E url('/images/bg.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: #F5F2FF;
   font-family: 'Prompt', sans-serif;
 }

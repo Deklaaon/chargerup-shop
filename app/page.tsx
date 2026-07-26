@@ -11,6 +11,9 @@ type Game = {
   icon: string;
 };
 
+// เกมที่มีรูปแล้ว ใส่ id ตามชื่อไฟล์ในโฟลเดอร์ public/images
+const GAMES_WITH_IMAGE = ["rov", "freefire", "pubgm", "roblox"];
+
 export default function Home() {
   const [games, setGames] = useState<Game[] | null>(null);
 
@@ -28,16 +31,29 @@ export default function Home() {
       {!games && <p style={{ color: "#A79FC7" }}>กำลังโหลด...</p>}
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 16 }}>
-        {games?.map((g) => (
-          <Link key={g.id} href={`/game/${g.id}`} style={{ textDecoration: "none", color: "inherit" }}>
-            <div style={{ background: "#1F1640", border: "1px solid #2A2154", borderRadius: 16, overflow: "hidden" }}>
-              <div style={{ height: 90, background: `linear-gradient(140deg, ${g.color}dd 0%, #150E2E 115%)` }} />
-              <div style={{ padding: 14 }}>
-                <p style={{ fontWeight: 600, fontSize: 14 }}>{g.name}</p>
+        {games?.map((g) => {
+          const hasImage = GAMES_WITH_IMAGE.includes(g.id);
+          return (
+            <Link key={g.id} href={`/game/${g.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+              <div style={{ background: "#1F1640", border: "1px solid #2A2154", borderRadius: 16, overflow: "hidden" }}>
+                <div
+                  style={{
+                    height: 90,
+                    backgroundImage: hasImage
+                      ? `url(/images/${g.id}.jpg), linear-gradient(140deg, ${g.color}dd 0%, #150E2E 115%)`
+                      : `linear-gradient(140deg, ${g.color}dd 0%, #150E2E 115%)`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                  }}
+                />
+                <div style={{ padding: 14 }}>
+                  <p style={{ fontWeight: 600, fontSize: 14 }}>{g.name}</p>
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          );
+        })}
       </div>
     </main>
   );
