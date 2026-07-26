@@ -2,9 +2,16 @@
 @import "tailwindcss";
 
 body {
-  background: #150E2E url('/images/bg.jpg') no-repeat center center fixed;
+  background:
+    linear-gradient(rgba(21, 14, 46, 0.82), rgba(21, 14, 46, 0.82)),
+    url('/images/bg.jpg') no-repeat center center fixed;
   background-size: cover;
   color: #F5F2FF;
   font-family: 'Prompt', sans-serif;
 }
+
 .display-font { font-family: 'Chakra Petch', sans-serif; }
+
+h1, h2, h3 {
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
