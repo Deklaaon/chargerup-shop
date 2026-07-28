@@ -28,10 +28,7 @@ export default function GamePage() {
     console.log("ผลลัพธ์ games:", res);
     setGame(res.data as Game);
   });
-  supabase.from("packages").select("*").eq("game_id", id).then((res) => {
-    console.log("ผลลัพธ์ packages:", res);
-    setPackages((res.data as Pkg[]) || []);
-  });
+  supabase.from("packages").select("*").eq("game_id", id).order("price", { ascending: true }).then(({ data }) => setPackages((data as Pkg[]) || []));
 }, [id]);
 
   const submit = async () => {
